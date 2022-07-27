@@ -67,3 +67,16 @@ window.addEventListener('keydown', (event) => {
   const { box, audio } = mapBoxAudio[event.keyCode];
   box.classList.toggle('playing');
 });
+
+window.addEventListener('keyup', (event) => {
+  /*  TODO: Add suggested conditional for "composing" scenario?
+   *  https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
+   */
+  // ...
+
+  /* Disregard if keypress code is unsupported */
+  if (!mapBoxAudio.hasOwnProperty(event.keyCode)) return;
+
+  const { box, audio } = mapBoxAudio[event.keyCode];
+  box.classList.toggle('playing');
+});
