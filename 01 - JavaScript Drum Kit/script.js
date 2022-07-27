@@ -23,16 +23,22 @@ function* zip(...iterables) {
 
 const keyBoxes = document.querySelectorAll('.key');
 const keyAudio = document.querySelectorAll('audio');
+const keyObjectEntries = Array.from(zip(keyBoxes, keyAudio));
 
-const mapBoxAudio = [...zip(keyBoxes, keyAudio)].reduce((acmlObj, pair) => {
+/*  Ensure corresponding box and audio elements have the same data key
+    TODO: Merge this together with the `.reduce()` below?
+ */
+for (const pair of keyObjectEntries) {
   const dataKeys = pair.map((element) => element.getAttribute('data-key'));
-  const areKeysAllSame = dataKeys.every((key) => dataKeys[0]);
 
   /* TODO: More descriptive error text? */
+  const areKeysAllSame = dataKeys.every((key) => dataKeys[0]);
   if (!areKeysAllSame) throw 'Not all keys properly correspond; please check.';
+}
 
-  const key = dataKeys[0];
+const mapBoxAudio = keyObjectEntries.reduce((acmlObj, pair) => {
   const [box, audio] = pair;
+  const key = box.getAttribute('data-key'); // By this point, `box` and `audio` are assured to have the same `data-key`
   acmlObj[key] = { box, audio };
 
   return acmlObj;
