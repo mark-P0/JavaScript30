@@ -66,6 +66,13 @@ window.addEventListener('keydown', (event) => {
 
   const { box, audio } = mapBoxAudio[event.keyCode];
   box.classList.toggle('playing');
+
+  /*  Reset and play audio
+   *  https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
+   *  https://stackoverflow.com/questions/31908462/reset-audio-when-i-click-on-a-link
+   */
+  audio.currentTime = 0;
+  audio.play();
 });
 
 window.addEventListener('keyup', (event) => {
