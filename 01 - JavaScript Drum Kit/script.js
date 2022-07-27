@@ -44,3 +44,26 @@ const mapBoxAudio = keyObjectEntries.reduce((acmlObj, pair) => {
   return acmlObj;
 }, {});
 console.table(mapBoxAudio);
+
+/*  Add event listeners to `window`
+ *  so that key presses may be listened for as long as the window is active
+ *
+ *  ---
+ *
+ *  `event.keyCode` is deprecated!
+ *  https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+ *  Tutorial / Exercise / Course is outdated!
+ */
+
+window.addEventListener('keydown', (event) => {
+  /*  TODO: Add suggested conditional for "composing" scenario?
+   *  https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+   */
+  // ...
+
+  /* Disregard if keypress code is unsupported */
+  if (!mapBoxAudio.hasOwnProperty(event.keyCode)) return;
+
+  const { box, audio } = mapBoxAudio[event.keyCode];
+  box.classList.toggle('playing');
+});
