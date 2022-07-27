@@ -61,8 +61,13 @@ window.addEventListener('keydown', (event) => {
    */
   // ...
 
-  /* Disregard if keypress code is unsupported */
-  if (!mapBoxAudio.hasOwnProperty(event.keyCode)) return;
+  if (
+    /* Disregard if keypress code is unsupported */
+    !mapBoxAudio.hasOwnProperty(event.keyCode) ||
+    /* Disregard if keypress is held */
+    event.repeat
+  )
+    return;
 
   const { box, audio } = mapBoxAudio[event.keyCode];
   box.classList.toggle('playing');
@@ -81,8 +86,15 @@ window.addEventListener('keyup', (event) => {
    */
   // ...
 
-  /* Disregard if keypress code is unsupported */
-  if (!mapBoxAudio.hasOwnProperty(event.keyCode)) return;
+  if (
+    /* Disregard if keypress code is unsupported */
+    !mapBoxAudio.hasOwnProperty(event.keyCode) ||
+    /*  Disregard if keypress is held
+     *  TODO: Remove? Unnecessary?
+     */
+    event.repeat
+  )
+    return;
 
   const { box, audio } = mapBoxAudio[event.keyCode];
   box.classList.toggle('playing');
